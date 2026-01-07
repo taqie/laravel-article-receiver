@@ -1,5 +1,10 @@
 # Laravel Article Receiver
 
+[![Packagist Version](https://img.shields.io/packagist/v/taqie/laravel-article-receiver.svg)](https://packagist.org/packages/taqie/laravel-article-receiver)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/taqie/laravel-article-receiver.svg)](https://packagist.org/packages/taqie/laravel-article-receiver)
+[![PHP Version](https://img.shields.io/packagist/php-v/taqie/laravel-article-receiver.svg)](https://packagist.org/packages/taqie/laravel-article-receiver)
+[![License](https://img.shields.io/packagist/l/taqie/laravel-article-receiver.svg)](https://packagist.org/packages/taqie/laravel-article-receiver)
+
 Laravel package for receiving articles from external systems.
 
 ## PL
