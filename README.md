@@ -111,6 +111,15 @@ Hooki moga byc closure, `Class@method` lub callable array.
 
 Mapowanie jest stosowane przy create/update artykulu.
 
+### Prefix tabel
+
+```php
+// config/article-receiver.php
+'table_prefix' => 'ar_',
+```
+
+Domyslnie tabele maja prefix `ar_`, np. `ar_articles`.
+
 ### Testy i pokrycie
 
 Uruchomienie testow:
@@ -226,6 +235,15 @@ Hooks can be closures, `Class@method` strings, or callable arrays.
 ```
 
 Mapping is applied in the article create/update actions before saving.
+
+### Table prefix
+
+```php
+// config/article-receiver.php
+'table_prefix' => 'ar_',
+```
+
+By default tables use the `ar_` prefix, e.g. `ar_articles`.
 
 ### Testing and coverage
 

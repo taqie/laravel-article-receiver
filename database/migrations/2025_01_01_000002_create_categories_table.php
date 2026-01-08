@@ -10,14 +10,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table): void {
+        $tableName = (string) config('article-receiver.tables.category', 'ar_categories');
+
+        Schema::create($tableName, function (Blueprint $table) use ($tableName): void {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->foreignId('parent_id')
                 ->nullable()
-                ->constrained('categories')
+                ->constrained($tableName)
                 ->nullOnDelete();
             $table->timestamps();
         });
@@ -25,6 +27,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        $tableName = (string) config('article-receiver.tables.category', 'ar_categories');
+
+        Schema::dropIfExists($tableName);
     }
 };

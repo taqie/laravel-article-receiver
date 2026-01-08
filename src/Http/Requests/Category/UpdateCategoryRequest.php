@@ -19,12 +19,13 @@ class UpdateCategoryRequest extends FormRequest
     {
         $category = $this->route('category');
         $categoryId = $category?->getKey();
+        $categoryTable = (string) config('article-receiver.tables.category', 'ar_categories');
 
         $rules = [
             'name' => ['nullable', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('categories', 'slug')->ignore($categoryId)],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique($categoryTable, 'slug')->ignore($categoryId)],
             'description' => ['nullable', 'string'],
-            'parent_id' => ['nullable', 'integer', 'exists:categories,id'],
+            'parent_id' => ['nullable', 'integer', "exists:{$categoryTable},id"],
         ];
 
         return array_replace_recursive($rules, config('article-receiver.validation.update_category', []));

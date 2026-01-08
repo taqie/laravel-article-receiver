@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Author extends Model
 {
+    public function getTable(): string
+    {
+        return (string) config('article-receiver.tables.author', parent::getTable());
+    }
+
     protected $fillable = [
         'name',
         'email',

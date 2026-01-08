@@ -19,10 +19,11 @@ class UpdateTagRequest extends FormRequest
     {
         $tag = $this->route('tag');
         $tagId = $tag?->getKey();
+        $tagTable = (string) config('article-receiver.tables.tag', 'ar_tags');
 
         $rules = [
             'name' => ['nullable', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('tags', 'slug')->ignore($tagId)],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique($tagTable, 'slug')->ignore($tagId)],
         ];
 
         return array_replace_recursive($rules, config('article-receiver.validation.update_tag', []));

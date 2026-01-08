@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class Media extends Model
 {
+    public function getTable(): string
+    {
+        return (string) config('article-receiver.tables.media', parent::getTable());
+    }
+
     protected $fillable = [
         'article_id',
         'filename',

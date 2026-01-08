@@ -30,7 +30,7 @@ if (! class_exists(\Laravel\Sanctum\NewAccessToken::class)) {
     );
 }
 
-if (! class_exists(\Laravel\Sanctum\HasApiTokens::class)) {
+if (! trait_exists(\Laravel\Sanctum\HasApiTokens::class)) {
     class_alias(
         \Taqie\LaravelArticleReceiver\Tests\Stubs\Sanctum\HasApiTokens::class,
         \Laravel\Sanctum\HasApiTokens::class
@@ -86,8 +86,9 @@ abstract class TestCase extends Orchestra
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadMigrationsFrom(__DIR__.'/Database/migrations');
         $sanctumMigrations = __DIR__.'/../vendor/laravel/sanctum/database/migrations';
+        $stubTokensMigration = __DIR__.'/Database/migrations/2025_01_01_000001_create_personal_access_tokens_table.php';
 
-        if (is_dir($sanctumMigrations)) {
+        if (is_dir($sanctumMigrations) && ! file_exists($stubTokensMigration)) {
             $this->loadMigrationsFrom($sanctumMigrations);
         }
     }

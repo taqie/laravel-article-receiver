@@ -10,7 +10,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('authors', function (Blueprint $table): void {
+        $tableName = (string) config('article-receiver.tables.author', 'ar_authors');
+
+        Schema::create($tableName, function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('email')->nullable()->unique();
@@ -23,6 +25,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('authors');
+        $tableName = (string) config('article-receiver.tables.author', 'ar_authors');
+
+        Schema::dropIfExists($tableName);
     }
 };

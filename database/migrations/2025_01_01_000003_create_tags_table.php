@@ -10,7 +10,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('tags', function (Blueprint $table): void {
+        $tableName = (string) config('article-receiver.tables.tag', 'ar_tags');
+
+        Schema::create($tableName, function (Blueprint $table): void {
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
@@ -20,6 +22,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('tags');
+        $tableName = (string) config('article-receiver.tables.tag', 'ar_tags');
+
+        Schema::dropIfExists($tableName);
     }
 };

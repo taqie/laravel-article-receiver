@@ -17,11 +17,13 @@ class StoreCategoryRequest extends FormRequest
 
     public function rules(): array
     {
+        $categoryTable = (string) config('article-receiver.tables.category', 'ar_categories');
+
         $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('categories', 'slug')],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique($categoryTable, 'slug')],
             'description' => ['nullable', 'string'],
-            'parent_id' => ['nullable', 'integer', 'exists:categories,id'],
+            'parent_id' => ['nullable', 'integer', "exists:{$categoryTable},id"],
         ];
 
         return array_replace_recursive($rules, config('article-receiver.validation.store_category', []));

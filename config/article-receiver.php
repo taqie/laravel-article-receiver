@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+$tablePrefix = (string) env('ARTICLE_RECEIVER_TABLE_PREFIX', 'ar_');
+
 return [
-    'version' => '0.1.1',
+    'version' => '0.1.2',
 
     'routes' => [
         'enabled' => true,
@@ -18,6 +20,17 @@ return [
         'category' => \Taqie\LaravelArticleReceiver\Models\Category::class,
         'tag' => \Taqie\LaravelArticleReceiver\Models\Tag::class,
         'media' => \Taqie\LaravelArticleReceiver\Models\Media::class,
+    ],
+
+    'table_prefix' => $tablePrefix,
+
+    'tables' => [
+        'article' => $tablePrefix . 'articles',
+        'author' => $tablePrefix . 'authors',
+        'category' => $tablePrefix . 'categories',
+        'tag' => $tablePrefix . 'tags',
+        'article_tag' => $tablePrefix . 'article_tag',
+        'media' => $tablePrefix . 'media',
     ],
 
     'field_mapping' => [

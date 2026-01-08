@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model
 {
+    public function getTable(): string
+    {
+        return (string) config('article-receiver.tables.tag', parent::getTable());
+    }
+
     protected $fillable = [
         'name',
         'slug',
@@ -16,6 +21,9 @@ class Tag extends Model
 
     public function articles(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(
+            Article::class,
+            config('article-receiver.tables.article_tag', 'ar_article_tag')
+        );
     }
 }

@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial release preparation.
 
+## [0.1.2] - 2026-01-08
+
+- Add configurable table prefix for all package tables.
+- Update migrations, models, relations, and validation rules to use prefixed tables.
+- Document table prefix configuration in the README.
+
 ## [0.1.1] - 2026-01-07
 
 - README updated with PL/EN instructions and Packagist badges.

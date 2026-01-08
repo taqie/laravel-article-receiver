@@ -16,6 +16,9 @@ class UpdateArticleRequest extends FormRequest
 
     public function rules(): array
     {
+        $authorTable = (string) config('article-receiver.tables.author', 'ar_authors');
+        $categoryTable = (string) config('article-receiver.tables.category', 'ar_categories');
+
         $rules = [
             'title' => ['nullable', 'string', 'max:255'],
             'lead' => ['nullable', 'string', 'max:500'],
@@ -24,8 +27,8 @@ class UpdateArticleRequest extends FormRequest
             'tags' => ['nullable', 'array'],
             'tags.*' => ['string', 'max:100'],
             'status' => ['nullable', 'string'],
-            'author_id' => ['nullable', 'integer', 'exists:authors,id'],
-            'category_id' => ['nullable', 'integer', 'exists:categories,id'],
+            'author_id' => ['nullable', 'integer', "exists:{$authorTable},id"],
+            'category_id' => ['nullable', 'integer', "exists:{$categoryTable},id"],
             'featured_image_url' => ['nullable', 'string', 'max:500'],
             'published_at' => ['nullable', 'date'],
             'metadata' => ['nullable', 'array'],

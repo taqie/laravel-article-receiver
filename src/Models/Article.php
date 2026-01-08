@@ -14,6 +14,11 @@ class Article extends Model
 {
     use ReceivesArticles;
 
+    public function getTable(): string
+    {
+        return (string) config('article-receiver.tables.article', parent::getTable());
+    }
+
     protected $fillable = [
         'title',
         'slug',
@@ -49,7 +54,10 @@ class Article extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(
+            Tag::class,
+            config('article-receiver.tables.article_tag', 'ar_article_tag')
+        );
     }
 
     public function media(): HasMany

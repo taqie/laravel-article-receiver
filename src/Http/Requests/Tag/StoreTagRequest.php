@@ -17,9 +17,11 @@ class StoreTagRequest extends FormRequest
 
     public function rules(): array
     {
+        $tagTable = (string) config('article-receiver.tables.tag', 'ar_tags');
+
         $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['nullable', 'string', 'max:255', Rule::unique('tags', 'slug')],
+            'slug' => ['nullable', 'string', 'max:255', Rule::unique($tagTable, 'slug')],
         ];
 
         return array_replace_recursive($rules, config('article-receiver.validation.store_tag', []));

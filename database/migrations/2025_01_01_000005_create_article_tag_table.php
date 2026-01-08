@@ -10,9 +10,13 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('article_tag', function (Blueprint $table): void {
-            $table->foreignId('article_id')->constrained('articles')->cascadeOnDelete();
-            $table->foreignId('tag_id')->constrained('tags')->cascadeOnDelete();
+        $pivotTable = (string) config('article-receiver.tables.article_tag', 'ar_article_tag');
+        $articlesTable = (string) config('article-receiver.tables.article', 'ar_articles');
+        $tagsTable = (string) config('article-receiver.tables.tag', 'ar_tags');
+
+        Schema::create($pivotTable, function (Blueprint $table) use ($articlesTable, $tagsTable): void {
+            $table->foreignId('article_id')->constrained($articlesTable)->cascadeOnDelete();
+            $table->foreignId('tag_id')->constrained($tagsTable)->cascadeOnDelete();
 
             $table->primary(['article_id', 'tag_id']);
         });
@@ -20,6 +24,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('article_tag');
+        $pivotTable = (string) config('article-receiver.tables.article_tag', 'ar_article_tag');
+
+        Schema::dropIfExists($pivotTable);
     }
 };

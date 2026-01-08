@@ -19,10 +19,11 @@ class UpdateAuthorRequest extends FormRequest
     {
         $author = $this->route('author');
         $authorId = $author?->getKey();
+        $authorTable = (string) config('article-receiver.tables.author', 'ar_authors');
 
         $rules = [
             'name' => ['nullable', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255', Rule::unique('authors', 'email')->ignore($authorId)],
+            'email' => ['nullable', 'email', 'max:255', Rule::unique($authorTable, 'email')->ignore($authorId)],
             'bio' => ['nullable', 'string'],
             'avatar_url' => ['nullable', 'string', 'max:500'],
             'website' => ['nullable', 'string', 'max:500'],

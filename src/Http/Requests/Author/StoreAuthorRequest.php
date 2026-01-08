@@ -17,9 +17,11 @@ class StoreAuthorRequest extends FormRequest
 
     public function rules(): array
     {
+        $authorTable = (string) config('article-receiver.tables.author', 'ar_authors');
+
         $rules = [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'max:255', Rule::unique('authors', 'email')],
+            'email' => ['nullable', 'email', 'max:255', Rule::unique($authorTable, 'email')],
             'bio' => ['nullable', 'string'],
             'avatar_url' => ['nullable', 'string', 'max:500'],
             'website' => ['nullable', 'string', 'max:500'],

@@ -10,9 +10,12 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table): void {
+        $mediaTable = (string) config('article-receiver.tables.media', 'ar_media');
+        $articlesTable = (string) config('article-receiver.tables.article', 'ar_articles');
+
+        Schema::create($mediaTable, function (Blueprint $table) use ($articlesTable): void {
             $table->id();
-            $table->foreignId('article_id')->nullable()->constrained('articles')->nullOnDelete();
+            $table->foreignId('article_id')->nullable()->constrained($articlesTable)->nullOnDelete();
             $table->string('filename');
             $table->string('path', 500);
             $table->string('disk');
@@ -25,6 +28,8 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        $mediaTable = (string) config('article-receiver.tables.media', 'ar_media');
+
+        Schema::dropIfExists($mediaTable);
     }
 };

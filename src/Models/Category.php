@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
+    public function getTable(): string
+    {
+        return (string) config('article-receiver.tables.category', parent::getTable());
+    }
+
     protected $fillable = [
         'name',
         'slug',
